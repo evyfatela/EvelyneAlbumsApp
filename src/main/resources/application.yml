@@ -1,0 +1,7 @@
+spotify:
+  clientId: ENC(CoIDcX82gqDFFA9tzqIYWQSM1hSqvWii4Qhwdj/aJOK+9KRSXe7lSjMIuaCRK+QFO9dMXhT7XDA=)
+  clientSecret: ENC(xdzdctaFsQCSPVsBiPC5/qVGgabZeY3c5F2icRlRv1XZzgPbhogc1ACew5flgu2uDWfHb2h91N4=)
+
+jasypt:
+  encryptor:
+    algorithm: PBEWITHMD5ANDTRIPLEDES
