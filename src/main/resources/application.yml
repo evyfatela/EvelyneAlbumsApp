@@ -1,7 +1,18 @@
-spotify:
-  clientId: ENC(CoIDcX82gqDFFA9tzqIYWQSM1hSqvWii4Qhwdj/aJOK+9KRSXe7lSjMIuaCRK+QFO9dMXhT7XDA=)
-  clientSecret: ENC(xdzdctaFsQCSPVsBiPC5/qVGgabZeY3c5F2icRlRv1XZzgPbhogc1ACew5flgu2uDWfHb2h91N4=)
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: ENC(9JQ1K+OiSWH5VY5X6bjCq6bIAmR3y+uCEchidVDxQC8=)
+    password: ENC(hV9HDH+5ULPPzWWVK4sJfJ5R3M4prrFNXD2todleyZM=)
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console.enabled: true
 
 jasypt:
   encryptor:
     algorithm: PBEWITHMD5ANDTRIPLEDES
+
+spotify:
+  clientId: ENC(CoIDcX82gqDFFA9tzqIYWQSM1hSqvWii4Qhwdj/aJOK+9KRSXe7lSjMIuaCRK+QFO9dMXhT7XDA=)
+  clientSecret: ENC(xdzdctaFsQCSPVsBiPC5/qVGgabZeY3c5F2icRlRv1XZzgPbhogc1ACew5flgu2uDWfHb2h91N4=)
