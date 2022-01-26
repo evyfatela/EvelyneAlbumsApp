@@ -7,7 +7,7 @@ public final class LogUtils {
     }
 
     public static String getSearchCriteriaString(String artist, String album) {
-        return buildString(" artist = ", artist, " no artist criteria ")
+        return buildString(" artist = ", artist, " no artist criteria")
                + buildString(" and album = ", album, " and no album criteria");
     }
 
