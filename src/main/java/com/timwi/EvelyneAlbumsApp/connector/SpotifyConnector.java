@@ -1,10 +1,11 @@
 package com.timwi.EvelyneAlbumsApp.connector;
 
-import com.timwi.EvelyneAlbumsApp.security.SpotifyAuthenticationInterceptor;
-import com.timwi.EvelyneAlbumsApp.properties.SpotifyProperties;
 import com.timwi.EvelyneAlbumsApp.domain.spotify.Albums;
 import com.timwi.EvelyneAlbumsApp.domain.spotify.SearchResultAlbums;
+import com.timwi.EvelyneAlbumsApp.properties.SpotifyProperties;
+import com.timwi.EvelyneAlbumsApp.security.SpotifyAuthenticationInterceptor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 import static com.timwi.EvelyneAlbumsApp.constant.SpotifyConstant.*;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SpotifyConnector {
@@ -29,6 +31,7 @@ public class SpotifyConnector {
     }
 
     public Albums searchAlbums(String artist, String album) {
+        log.info("Call spotify API to search album");
         UriComponents builder = UriComponentsBuilder.fromHttpUrl(SPOTIFY_API_URI + SEARCH)
                 .queryParam(LIMIT, 20)
                 .queryParam(TYPE, ALBUM_TYPE)
@@ -46,6 +49,8 @@ public class SpotifyConnector {
             }
             builder.append(QUERY_ALBUM).append(s);
         });
-        return builder.toString();
+        String query = builder.toString();
+        log.debug("Call to Spotify search API - Build query param for artist and album : " + query);
+        return query;
     }
 }

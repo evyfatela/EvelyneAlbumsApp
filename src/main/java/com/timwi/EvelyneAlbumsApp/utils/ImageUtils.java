@@ -1,6 +1,7 @@
 package com.timwi.EvelyneAlbumsApp.utils;
 
 import com.timwi.EvelyneAlbumsApp.domain.spotify.Image;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import static com.timwi.EvelyneAlbumsApp.utils.StreamUtils.collectionToStream;
 
+@Slf4j
 public final class ImageUtils {
 
     private ImageUtils() {
@@ -25,6 +27,7 @@ public final class ImageUtils {
         try (InputStream is = new URL(url).openStream()) {
             return IOUtils.toByteArray(is);
         } catch (IOException e) {
+            log.error("An error occured while getting bytes from url : ", e);
             return null;
         }
     }

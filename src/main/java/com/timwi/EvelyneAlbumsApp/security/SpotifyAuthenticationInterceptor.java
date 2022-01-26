@@ -3,6 +3,7 @@ package com.timwi.EvelyneAlbumsApp.security;
 import com.timwi.EvelyneAlbumsApp.domain.spotify.Token;
 import com.timwi.EvelyneAlbumsApp.properties.SpotifyProperties;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -23,6 +24,7 @@ import java.util.Optional;
 
 import static com.timwi.EvelyneAlbumsApp.constant.SpotifyConstant.*;
 
+@Slf4j
 @RequiredArgsConstructor
 @Configuration
 public class SpotifyAuthenticationInterceptor implements ClientHttpRequestInterceptor {
@@ -42,7 +44,16 @@ public class SpotifyAuthenticationInterceptor implements ClientHttpRequestInterc
         return execution.execute(request, body);
     }
 
-    public String generateToken() {
+    private String getToken() {
+        if (null == token || isTokenExpired()) {
+            log.info("Get token from spotify");
+            token = generateToken();
+        }
+        return token;
+    }
+
+    private String generateToken() {
+        log.debug("Get spotify token");
         RestTemplate restTemplate = new RestTemplate();
         var headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -61,22 +72,20 @@ public class SpotifyAuthenticationInterceptor implements ClientHttpRequestInterc
         return Optional.ofNullable(result).map(Token::getAccessToken).orElse("");
     }
 
-    private String getToken() {
-        if (null == token || isTokenExpired()) {
-            token = generateToken();
-        }
-        return token;
-    }
-
     private boolean isTokenExpired() {
         LocalDateTime now = LocalDateTime.now();
         long secondBeforeTokenExpiration = ChronoUnit.SECONDS.between(now, tokenEndTime);
-        return secondBeforeTokenExpiration > 0;
+        boolean istokenExpired = secondBeforeTokenExpiration > 0;
+        if (istokenExpired) {
+            log.debug("Spotify token expired");
+        }
+        return istokenExpired;
     }
 
     private void setTokenEndTimeWithMargin(Token result) {
         tokenEndTime = LocalDateTime.now().plusSeconds(
                 Optional.ofNullable(result).map(Token::getExpiresIn)
                         .map(Long::valueOf).map(aLong -> aLong - 10).orElse(0L));
+        log.debug("Spotify token will expire : " + tokenEndTime);
     }
 }
