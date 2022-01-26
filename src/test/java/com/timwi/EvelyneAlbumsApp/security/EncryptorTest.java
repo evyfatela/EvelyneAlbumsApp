@@ -1,4 +1,4 @@
-package com.timwi.EvelyneAlbumsApp;
+package com.timwi.EvelyneAlbumsApp.security;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.iv.RandomIvGenerator;
