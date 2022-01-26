@@ -15,6 +15,7 @@ import javax.annotation.PostConstruct;
 import java.util.Optional;
 
 import static com.timwi.EvelyneAlbumsApp.constant.SpotifyConstant.*;
+import static com.timwi.EvelyneAlbumsApp.utils.ConnectorUtils.buildQuery;
 
 @Slf4j
 @Service
@@ -38,19 +39,5 @@ public class SpotifyConnector {
                 .queryParam(QUERY, buildQuery(artist, album)).build();
         SearchResultAlbums result = restTemplate.getForObject(builder.toUriString(), SearchResultAlbums.class);
         return Optional.ofNullable(result).map(SearchResultAlbums::getAlbums).orElse(new Albums());
-    }
-
-    private String buildQuery(String artist, String album) {
-        StringBuilder builder = new StringBuilder();
-        Optional.ofNullable(artist).ifPresent(s -> builder.append(QUERY_ARTIST).append(s));
-        Optional.ofNullable(album).ifPresent(s -> {
-            if (!builder.isEmpty()) {
-                builder.append(QUERY_APPENDER);
-            }
-            builder.append(QUERY_ALBUM).append(s);
-        });
-        String query = builder.toString();
-        log.debug("Call to Spotify search API - Build query param for artist and album : " + query);
-        return query;
     }
 }
