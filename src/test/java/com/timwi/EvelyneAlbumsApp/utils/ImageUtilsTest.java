@@ -22,8 +22,16 @@ public class ImageUtilsTest {
 
     @Test
     public void testGetThumbnailImageUrl() {
-        assertThat(getThumbnailImageUrl(Arrays.asList(Image.builder().height(450).width(450).url(URL_1).build(),
-                Image.builder().height(20).width(20).url(URL_2).build(),
-                Image.builder().height(180).width(180).url(URL_3).build()))).isEqualTo(Optional.of(URL_2));
+        assertThat(getThumbnailImageUrl(Arrays.asList(createImage(URL_1, 450),
+                createImage(URL_2, 20),
+                createImage(URL_3, 180)))).isEqualTo(Optional.of(URL_2));
+    }
+
+    private Image createImage(String url, Integer size) {
+        Image image = new Image();
+        image.setUrl(url);
+        image.setHeight(size);
+        image.setWidth(size);
+        return image;
     }
 }
