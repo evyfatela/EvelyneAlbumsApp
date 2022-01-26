@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 import static com.timwi.EvelyneAlbumsApp.utils.StreamUtils.collectionToStream;
 
@@ -19,8 +20,7 @@ public final class ImageUtils {
     }
 
     public static byte[] getThumbnailBytes(List<Image> images) {
-        return collectionToStream(images).min(Comparator.comparingInt(Image::getHeight))
-                .map(Image::getUrl).map(ImageUtils::getBytesFromUrl).orElse(null);
+        return getThumbnailImageUrl(images).map(ImageUtils::getBytesFromUrl).orElse(null);
     }
 
     public static byte[] getBytesFromUrl(String url) {
@@ -30,5 +30,10 @@ public final class ImageUtils {
             log.error("An error occured while getting bytes from url : ", e);
             return null;
         }
+    }
+
+    public static Optional<String> getThumbnailImageUrl(List<Image> images) {
+        return collectionToStream(images).min(Comparator.comparingInt(Image::getHeight))
+                .map(Image::getUrl);
     }
 }
