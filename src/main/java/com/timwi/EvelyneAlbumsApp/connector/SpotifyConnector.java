@@ -13,7 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.annotation.PostConstruct;
 import java.util.Optional;
 
-import static com.timwi.EvelyneAlbumsApp.SpotifyConstant.*;
+import static com.timwi.EvelyneAlbumsApp.constant.SpotifyConstant.*;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +28,7 @@ public class SpotifyConnector {
         restTemplate.getInterceptors().add(new SpotifyAuthenticationInterceptor(spotifyProperties));
     }
 
-    public Albums searchAlbum(String artist, String album) {
+    public Albums searchAlbums(String artist, String album) {
         UriComponents builder = UriComponentsBuilder.fromHttpUrl(SPOTIFY_API_URI + SEARCH)
                 .queryParam(LIMIT, 20)
                 .queryParam(TYPE, ALBUM_TYPE)
