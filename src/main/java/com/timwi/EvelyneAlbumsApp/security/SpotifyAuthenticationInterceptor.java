@@ -21,7 +21,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Base64;
 import java.util.Optional;
 
-import static com.timwi.EvelyneAlbumsApp.SpotifyConstant.*;
+import static com.timwi.EvelyneAlbumsApp.constant.SpotifyConstant.*;
 
 @RequiredArgsConstructor
 @Configuration

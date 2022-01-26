@@ -1,4 +1,4 @@
-package com.timwi.EvelyneAlbumsApp;
+package com.timwi.EvelyneAlbumsApp.constant;
 
 public class SpotifyConstant {
 
