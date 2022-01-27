@@ -18,8 +18,6 @@ import java.util.List;
 @OpenAPIDefinition(info = @Info(title = "Evelyne Album App", description = "Timwi coding challenge", version = "1.0",
         contact = @Contact(name = "Evelyne Fatela Nabais", email = "evyfatela@hotmail.fr")))
 public interface EvelyneAlbumsAppController {
-    //TODO security
-    //TODO tests
 
     @Operation(summary = "Search album by artist or album name",
             description = "Search albums by an artist name and/or an album name.\n\n" +
