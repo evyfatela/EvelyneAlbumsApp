@@ -5,8 +5,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Data
-@ConfigurationProperties(prefix = "spotify")
 @Configuration
+@ConfigurationProperties(prefix = "spotify")
 public class SpotifyProperties {
 
     private static final String SEPARATOR_COLON = ":";
